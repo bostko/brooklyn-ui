@@ -180,12 +180,12 @@ define([
             document.execCommand('ClearAuthenticationCache', 'false');
             window.location.replace('/');
         } else {
-            $('<form action="' + '/logout_redirect.html' + '" method="POST" id="redirectForm">' +
+            $('<form action="/v1/logout/redirect" method="POST" id="redirectForm">' +
                 '<input type="hidden" name="acme" value="acme"/>' +
                 '</form>').appendTo($(document.body))
                 .submit();
         }
-    }
+    };
 
     Util.setSelectionRange = function (input, selectionStart, selectionEnd) {
       if (input.setSelectionRange) {
