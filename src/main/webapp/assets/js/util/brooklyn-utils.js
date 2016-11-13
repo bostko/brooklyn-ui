@@ -176,16 +176,17 @@ define([
 
     Util.logout = function logout() {
         var ua = window.navigator.userAgent;
+        var prefix_logout_redirect = window.location.href.indexOf('swagger') > 0 ? '../../' : './';
         if (ua.indexOf("MSIE ") >= 0 || ua.indexOf(" Edge/") >= 0 || ua.indexOf(" Trident/") >= 0) {
             document.execCommand('ClearAuthenticationCache', 'false');
             window.location.replace('/');
         } else {
-            $('<form action="' + 'logout_redirect.html' + '" method="POST" id="redirectForm">' +
+            $('<form action="' + prefix_logout_redirect + 'logout_redirect.html' + '" method="GET" id="redirectForm">' +
                 '<input type="hidden" name="acme" value="acme"/>' +
                 '</form>').appendTo($(document.body))
                 .submit();
         }
-    }
+    };
 
     Util.setSelectionRange = function (input, selectionStart, selectionEnd) {
       if (input.setSelectionRange) {
