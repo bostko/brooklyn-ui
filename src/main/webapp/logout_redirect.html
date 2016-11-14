@@ -26,7 +26,8 @@
 <body>
 <script>
     var a=new window.XMLHttpRequest;
-    a.open('POST','/v1/logout/user',0,'user','wrong'+(new Date).getTime().toString());a.send('');
+    a.open('POST','/v1/logout',0,'user','wrong'+(new Date).getTime().toString());
+    a.send('');
     window.location.href='.';
 </script>
 </body>
