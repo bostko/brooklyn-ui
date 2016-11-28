@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Blueprint Debugger</title>
+    <script src="assets/js/libs/underscore.js"></script>
+    <script src="assets/js/libs/jquery.js"></script>
+
+
+    <script>Josh = {Debug: true };</script>
+    <script src="assets/js/josh/killring.js"></script>
+    <script src="assets/js/josh/history.js"></script>
+    <script src="assets/js/josh/readline.js"></script>
+    <script src="assets/js/josh/shell.js"></script>
+    <script src="assets/js/josh/pathhandler.js"></script>
+    <script>
+    // TODO command effector
+    // TODO handler
+    // TODO AMP Rich Blueprint Developer Debugger?
+    $(document).ready(function() {
+      var history = new Josh.History({ key: 'josh.helloworld'});
+      var shell = Josh.Shell({history: history});
+      var promptCounter = 0;
+      shell.onNewPrompt(function(callback) {
+        promptCounter++;
+        callback("[" + promptCounter + "] $");
+      });
+      shell.setCommandHandler("hello", {
+        exec: function(cmd, args, callback) {
+          var arg = args[0] || '';
+          var response = "who is this " + arg + " you are talking to?";
+          if(arg === 'josh') {
+            response = 'pleased to meet you.';
+          } else if(arg === 'world') {
+            response = 'world says hi.'
+          } else if(!arg) {
+            response = 'ѝwho are you saying hello to?';
+          }
+          callback(response);
+        },
+        completion: function(cmd, arg, line, callback) {
+          callback(shell.bestMatch(arg, ['world', 'josh']))
+        }
+      });
+      shell.activate();
+    });</script>
+</head>
+<body>
+<section>
+    <h1>Hello World Shell</h1>
+
+    <p>This tutorial shows how easy it is to create the below shell window with a custom prompt and a new command
+        <code>hello</code>.</p>
+
+    <p>
+
+    <div id="shell-panel">
+        <div>Type <code>help</code> or hit <code>TAB</code> for a list of commands.</div>
+        <div id="shell-view"></div>
+    </div>
+</section>
+
+</body>
+</html>
